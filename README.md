@@ -13,14 +13,14 @@ Daily inputs are intentionally split into two layers:
 - **X timeline**: broad discovery source for what is being discussed and shared.
 - **Trusted primary-source URLs**: official blogs, docs, releases, papers, and GitHub sources used for fact-grounding.
 
-The repository keeps the pipeline and source registry public, but does **not** commit raw authenticated timeline snapshots.
+The repository keeps the static site and scripts public, but does **not** commit source settings or raw authenticated timeline snapshots.
 
 ## Files
 
 - `index.html` — site index
 - `daily/YYYY-MM-DD/index.html` — daily page
 - `daily/YYYY-MM-DD/daily.md` — text-heavy daily page for NotebookLM/reference
-- `config/x-news-sources.json` — source registry
+- `config/x-news-sources.example.json` — non-sensitive example source registry
 - `scripts/collect_x_news_sources.js` — authenticated X timeline + primary-source snapshot collector
 - `scripts/xai_x_news_site_collect.js` — X-news summarizer for daily pages
 - `scripts/generate_x_news_site.js` — static site generator

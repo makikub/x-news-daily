@@ -1,0 +1,19 @@
+{
+  "purpose": "Example source registry for X News Daily. Copy to a local config file outside the public repo and customize.",
+  "x": {
+    "timeline": {
+      "enabled": true,
+      "command": "xurl timeline -n 100"
+    },
+    "priorityHandles": [
+      "example_handle"
+    ]
+  },
+  "primarySources": [
+    {
+      "name": "Example Official Blog",
+      "url": "https://example.com/blog",
+      "topics": ["example"]
+    }
+  ]
+}

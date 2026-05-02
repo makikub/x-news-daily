@@ -5,3 +5,5 @@ node_modules/
 /data/
 /out/
 *.log
+config/x-news-sources.json
+config/*.local.json
