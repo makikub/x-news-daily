@@ -1,0 +1,78 @@
+{
+  "updatedAt": "2026-05-02T11:40:00.000Z",
+  "purpose": "Daily X-news source registry for NotebookLM-friendly news pages. Keep separate from knowledge-base-llm.",
+  "x": {
+    "timeline": {
+      "enabled": true,
+      "command": "xurl timeline -n 100",
+      "note": "Use Masaki's authenticated home timeline as the broad discovery source. Filter later for AI/dev-tools/newsworthiness."
+    },
+    "priorityHandles": [
+      "AnthropicAI",
+      "claudeai",
+      "OpenAI",
+      "GoogleDeepMind",
+      "GoogleAI",
+      "GeminiApp",
+      "cursor_ai",
+      "cognition",
+      "LangChainAI",
+      "sydneyrunkle",
+      "noahzweben",
+      "kimmonismus",
+      "oikon48"
+    ]
+  },
+  "primarySources": [
+    {
+      "name": "Anthropic News",
+      "url": "https://www.anthropic.com/news",
+      "topics": ["Claude", "Claude Code", "research", "product"]
+    },
+    {
+      "name": "Claude Blog",
+      "url": "https://claude.com/blog",
+      "topics": ["Claude", "Claude Code", "developer tools"]
+    },
+    {
+      "name": "OpenAI News",
+      "url": "https://openai.com/news/",
+      "topics": ["models", "API", "ChatGPT", "Codex"]
+    },
+    {
+      "name": "Google DeepMind Blog",
+      "url": "https://deepmind.google/discover/blog/",
+      "topics": ["Gemini", "research", "agents"]
+    },
+    {
+      "name": "Google AI Blog",
+      "url": "https://ai.googleblog.com/",
+      "topics": ["research", "models", "Google AI"]
+    },
+    {
+      "name": "Cursor Changelog",
+      "url": "https://cursor.com/changelog",
+      "topics": ["AI coding", "developer tools"]
+    },
+    {
+      "name": "Cognition Blog",
+      "url": "https://cognition.ai/blog",
+      "topics": ["Devin", "software agents"]
+    },
+    {
+      "name": "LangChain Blog",
+      "url": "https://blog.langchain.com/",
+      "topics": ["agents", "LangGraph", "HITL", "RAG"]
+    },
+    {
+      "name": "Hugging Face Blog",
+      "url": "https://huggingface.co/blog",
+      "topics": ["open models", "datasets", "agents"]
+    },
+    {
+      "name": "GitHub Blog AI",
+      "url": "https://github.blog/ai-and-ml/",
+      "topics": ["GitHub Copilot", "developer tools", "AI engineering"]
+    }
+  ]
+}
