@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 // Build X News Daily items from Masaki's authenticated home timeline snapshot.
-// Selection policy: last 24h, split into (1) high-engagement posts and (2) Masaki-preference posts.
+// Selection policy: last 24h, only Masaki-interest posts. Split into (1) high-engagement within interest and (2) preference-fit picks.
 const fs = require('fs');
 const path = require('path');
 
@@ -12,14 +12,19 @@ function scoreEngagement(m = {}) {
 function preferenceScore(t) {
   const text = `${t.text || ''} ${(t.urls || []).join(' ')}`.toLowerCase();
   let s = 0;
+  const core = [
+    'claude code', 'codex', 'cursor', 'devin', 'mcp', 'langchain', 'langgraph',
+    'github copilot', 'developer tool', 'devtools', 'agent sdk', 'ai agent'
+  ];
+  for (const k of core) if (text.includes(k)) s += 4;
   const kws = [
-    'claude', 'claude code', 'anthropic', 'openai', 'gpt', 'codex', 'cursor', 'devin',
-    'agent', 'agents', 'ai agent', 'mcp', 'langchain', 'langgraph', 'github copilot',
-    'developer tool', 'devtools', 'design system', 'automation', 'workflow', 'eval',
-    'rag', 'llm', 'notebooklm', 'gemini', 'deepmind'
+    'claude', 'anthropic', 'openai', 'gpt', 'agents', 'design system',
+    'automation', 'workflow', 'eval', 'rag', 'llm', 'notebooklm', 'gemini', 'deepmind'
   ];
   for (const k of kws) if (text.includes(k)) s += 2;
-  const jp = ['エージェント', '生成ai', 'ai開発', 'claude code', '開発支援', '自動化', 'ワークフロー', '評価', '実装', '設計'];
+  const jpCore = ['エージェント', 'aiエージェント', 'claude code', '開発支援', 'mcp', '評価基盤'];
+  for (const k of jpCore) if (text.includes(k)) s += 4;
+  const jp = ['生成ai', 'ai開発', '自動化', 'ワークフロー', '評価', '実装', '設計'];
   for (const k of jp) if (text.includes(k)) s += 2;
   if ((t.urls || []).some((u) => /anthropic|claude|openai|deepmind|google|github|cursor|cognition|langchain|huggingface|arxiv/i.test(u))) s += 4;
   if (/公式|release|changelog|blog|docs|paper|論文|発表|アップデート/i.test(text)) s += 2;
@@ -65,14 +70,18 @@ function pickTimelineItems(snapshot, hours, each) {
     .filter((t) => cleanText(t.text).length >= 20);
 
   const seen = new Set();
-  const popular = timeline
+  // Do not let generic viral timeline posts through. Popularity is only useful
+  // after the post matches Masaki's interest areas.
+  const interested = timeline.filter((t) => t.preferenceScore >= 4);
+
+  const popular = interested
     .slice()
-    .sort((a, b) => (b.engagementScore - a.engagementScore) || String(b.created_at).localeCompare(String(a.created_at)))
+    .sort((a, b) => (b.engagementScore - a.engagementScore) || (b.preferenceScore - a.preferenceScore) || String(b.created_at).localeCompare(String(a.created_at)))
     .slice(0, each)
-    .map((t) => ({ ...t, category: '反響の多い投稿', selectionReason: `engagementScore=${t.engagementScore}` }));
+    .map((t) => ({ ...t, category: '興味領域で反響の多い投稿', selectionReason: `preferenceScore=${t.preferenceScore}, engagementScore=${t.engagementScore}` }));
   for (const t of popular) seen.add(t.id || t.url);
 
-  const preferred = timeline
+  const preferred = interested
     .filter((t) => !seen.has(t.id || t.url))
     .sort((a, b) => (b.preferenceScore - a.preferenceScore) || (b.engagementScore - a.engagementScore))
     .slice(0, each)
@@ -80,21 +89,23 @@ function pickTimelineItems(snapshot, hours, each) {
   return [...popular, ...preferred];
 }
 
+function fallbackItems(selected) {
+  return selected.map((t) => ({
+    category: t.category,
+    handle: t.author || '',
+    url: t.url,
+    what: cleanText(t.text).slice(0, 260),
+    why: `${t.category}として選定。${t.selectionReason}`,
+    podcastAngle: 'この投稿が示すAI・開発ツール・実務ワークフローの変化を、一次ソースや周辺文脈と合わせて話す。',
+    refs: [t.url, ...(t.urls || [])].filter(Boolean),
+    metrics: t.metrics || null,
+    selectionReason: t.selectionReason
+  }));
+}
+
 async function summarize(selected) {
   const apiKey = process.env.XAI_API_KEY;
-  if (!apiKey) {
-    return selected.map((t) => ({
-      category: t.category,
-      handle: t.author || '',
-      url: t.url,
-      what: cleanText(t.text).slice(0, 240),
-      why: `${t.category}として選定。${t.selectionReason}`,
-      podcastAngle: 'この投稿が示す開発・AI活用の変化を、一次ソースや周辺文脈と合わせて話す。',
-      refs: [t.url, ...(t.urls || [])].filter(Boolean),
-      metrics: t.metrics || null,
-      selectionReason: t.selectionReason
-    }));
-  }
+  if (!apiKey) return fallbackItems(selected);
   const payload = selected.map((t, i) => ({
     idx: i + 1,
     category: t.category,
@@ -111,9 +122,14 @@ async function summarize(selected) {
   ];
   const resp = await xaiResponses({ apiKey, model: process.env.XAI_MODEL || 'grok-4-1-fast-reasoning', input });
   const parsed = tryParseJson(getText(resp));
-  if (!parsed?.items) throw new Error('failed to parse xAI JSON');
+  if (!parsed?.items) return fallbackItems(selected);
   return parsed.items.map((it, i) => ({
     ...it,
+    // Keep deterministic local selection categories/reasons; the model only summarizes.
+    category: selected[i]?.category || it.category,
+    selectionReason: selected[i]?.selectionReason || it.selectionReason,
+    handle: it.handle || selected[i]?.author || '',
+    url: it.url || selected[i]?.url || '',
     metrics: selected[i]?.metrics || null,
     refs: Array.isArray(it.refs) && it.refs.length ? it.refs : [selected[i]?.url, ...(selected[i]?.urls || [])].filter(Boolean)
   }));
@@ -134,7 +150,7 @@ async function summarize(selected) {
     from_date: ymd(new Date(now.getTime() - hours * 3600 * 1000)),
     to_date: snapshot.date || ymd(now),
     sourceSnapshot: snapshotPath,
-    selectionPolicy: 'last 24h home timeline; top engagement + Masaki preference picks',
+    selectionPolicy: 'last 24h home timeline; Masaki-interest posts only; top engagement within interests + preference picks',
     items
   }, null, 2));
 })().catch((e) => { console.error(String(e.stack || e)); process.exit(1); });
