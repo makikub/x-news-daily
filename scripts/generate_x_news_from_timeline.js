@@ -9,7 +9,12 @@ function ymd(d) { return `${d.getUTCFullYear()}-${String(d.getUTCMonth()+1).padS
 function scoreEngagement(m = {}) {
   return (m.like_count || 0) + 3 * (m.retweet_count || 0) + 2 * (m.reply_count || 0) + 4 * (m.quote_count || 0) + 2 * (m.bookmark_count || 0);
 }
-function preferenceScore(t) {
+function loadInterestProfile(profilePath) {
+  if (!profilePath || !fs.existsSync(profilePath)) return null;
+  try { return readJson(profilePath); } catch { return null; }
+}
+
+function preferenceScore(t, profile = null) {
   const text = `${t.text || ''} ${(t.urls || []).join(' ')}`.toLowerCase();
   let s = 0;
   const core = [
@@ -28,6 +33,15 @@ function preferenceScore(t) {
   for (const k of jp) if (text.includes(k)) s += 2;
   if ((t.urls || []).some((u) => /anthropic|claude|openai|deepmind|google|github|cursor|cognition|langchain|huggingface|arxiv/i.test(u))) s += 4;
   if (/公式|release|changelog|blog|docs|paper|論文|発表|アップデート/i.test(text)) s += 2;
+
+  for (const entry of profile?.positiveWeightedKeywords || []) {
+    const k = String(entry.keyword || '').toLowerCase();
+    if (k && text.includes(k)) s += Number(entry.weight || 0);
+  }
+  for (const entry of profile?.negativeKeywords || []) {
+    const k = String(entry.keyword || '').toLowerCase();
+    if (k && text.includes(k)) s += Number(entry.weight || 0);
+  }
   return s;
 }
 function cleanText(s) { return String(s || '').replace(/https:\/\/t\.co\/\S+/g, '').replace(/\s+/g, ' ').trim(); }
@@ -62,11 +76,11 @@ function tryParseJson(text) {
   try { return JSON.parse(text.slice(s, e + 1)); } catch { return null; }
 }
 
-function pickTimelineItems(snapshot, hours, each) {
+function pickTimelineItems(snapshot, hours, each, profile = null) {
   const since = Date.now() - hours * 3600 * 1000;
   const timeline = (snapshot.timeline || [])
     .filter((t) => Date.parse(t.created_at || '') >= since)
-    .map((t) => ({ ...t, engagementScore: scoreEngagement(t.metrics), preferenceScore: preferenceScore(t) }))
+    .map((t) => ({ ...t, engagementScore: scoreEngagement(t.metrics), preferenceScore: preferenceScore(t, profile) }))
     .filter((t) => cleanText(t.text).length >= 20);
 
   const seen = new Set();
@@ -137,11 +151,13 @@ async function summarize(selected) {
 
 (async () => {
   const snapshotPath = process.argv[2];
-  if (!snapshotPath) { console.error('Usage: generate_x_news_from_timeline.js <source-snapshot.json> [hours=24] [eachCategory=4]'); process.exit(2); }
+  if (!snapshotPath) { console.error('Usage: generate_x_news_from_timeline.js <source-snapshot.json> [hours=24] [eachCategory=4] [interestProfilePath]'); process.exit(2); }
   const hours = Number(process.argv[3] || 24);
   const each = Number(process.argv[4] || 4);
+  const profilePath = process.argv[5] || '/root/clawd/data/info-collector/interest-profile.local.json';
+  const profile = loadInterestProfile(profilePath);
   const snapshot = readJson(snapshotPath);
-  const selected = pickTimelineItems(snapshot, hours, each);
+  const selected = pickTimelineItems(snapshot, hours, each, profile);
   const items = await summarize(selected);
   const now = new Date();
   process.stdout.write(JSON.stringify({
@@ -151,6 +167,7 @@ async function summarize(selected) {
     to_date: snapshot.date || ymd(now),
     sourceSnapshot: snapshotPath,
     selectionPolicy: 'last 24h home timeline; Masaki-interest posts only; top engagement within interests + preference picks',
+    interestProfile: profile ? { path: profilePath, updatedAt: profile.updatedAt || null } : null,
     items
   }, null, 2));
 })().catch((e) => { console.error(String(e.stack || e)); process.exit(1); });
