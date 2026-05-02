@@ -161,7 +161,7 @@ function renderDayMarkdown(date, items, meta) {
 }
 
 function renderIndex(groups, meta) {
-  const links = groups.map(([date, items]) => `<li><a href="${esc(date)}/index.html">${esc(date)}</a> — ${items.length}件</li>`).join('\n');
+  const links = groups.map(([date, items]) => `<li><a href="daily/${esc(date)}/index.html">${esc(date)}</a> — ${items.length}件</li>`).join('\n');
   const body = `
 <h1>X News Daily</h1>
 <p>NotebookLMに読み込ませるための、X収集ニュース特化の日次テキストまとめサイトです。</p>
@@ -194,7 +194,7 @@ function main() {
   fs.writeFileSync(path.join(outDir, 'items.json'), JSON.stringify(items, null, 2));
 
   for (const [date, dayItems] of groups) {
-    const dayDir = path.join(outDir, date);
+    const dayDir = path.join(outDir, 'daily', date);
     mkdirp(dayDir);
     fs.writeFileSync(path.join(dayDir, 'index.html'), renderDay(date, dayItems, meta));
     fs.writeFileSync(path.join(dayDir, 'daily.md'), renderDayMarkdown(date, dayItems, meta));
