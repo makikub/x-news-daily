@@ -22,5 +22,6 @@ The repository keeps the static site and scripts public, but does **not** commit
 - `daily/YYYY-MM-DD/daily.md` — text-heavy daily page for NotebookLM/reference
 - `config/x-news-sources.example.json` — non-sensitive example source registry
 - `scripts/collect_x_news_sources.js` — authenticated X timeline + primary-source snapshot collector
-- `scripts/xai_x_news_site_collect.js` — X-news summarizer for daily pages
+- `scripts/generate_x_news_from_timeline.js` — selects high-engagement and preference-fit posts from the last 24h timeline
+- `scripts/xai_x_news_site_collect.js` — fallback X-news summarizer for daily pages
 - `scripts/generate_x_news_site.js` — static site generator
