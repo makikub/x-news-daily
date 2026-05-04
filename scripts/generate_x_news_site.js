@@ -66,6 +66,27 @@ function groupByDate(items) {
   return [...m.entries()].sort((a, b) => b[0].localeCompare(a[0]));
 }
 
+function inferExistingItemCount(dayDir) {
+  const md = path.join(dayDir, 'daily.md');
+  if (!fs.existsSync(md)) return 0;
+  const text = fs.readFileSync(md, 'utf8');
+  return (text.match(/^### \d+\./gm) || []).length;
+}
+
+function mergeExistingDailyGroups(outDir, currentGroups) {
+  const byDate = new Map(currentGroups);
+  const dailyDir = path.join(outDir, 'daily');
+  if (!fs.existsSync(dailyDir)) return currentGroups;
+  for (const name of fs.readdirSync(dailyDir)) {
+    if (!/^\d{4}-\d{2}-\d{2}$/.test(name) || byDate.has(name)) continue;
+    const dayDir = path.join(dailyDir, name);
+    if (!fs.statSync(dayDir).isDirectory()) continue;
+    if (!fs.existsSync(path.join(dayDir, 'index.html')) && !fs.existsSync(path.join(dayDir, 'daily.md'))) continue;
+    byDate.set(name, Array.from({ length: inferExistingItemCount(dayDir) }));
+  }
+  return [...byDate.entries()].sort((a, b) => b[0].localeCompare(a[0]));
+}
+
 function pickThemes(items) {
   const text = items.map((it) => `${it.what} ${it.why}`.toLowerCase()).join(' ');
   const themes = [];
@@ -189,17 +210,16 @@ function main() {
   const outDir = process.argv[3] || DEFAULT_OUT;
   const data = readJson(input);
   const items = normalizeItems(data);
-  const groups = groupByDate(items);
-  // Rebuild the local preview cleanly so stale date pages do not remain.
-  fs.rmSync(outDir, { recursive: true, force: true });
+  const currentGroups = groupByDate(items);
   mkdirp(outDir);
+  const groups = mergeExistingDailyGroups(outDir, currentGroups);
   const meta = { generatedAt: new Date().toISOString(), sourcePath: input };
 
   fs.writeFileSync(path.join(outDir, 'index.html'), renderIndex(groups, meta));
   fs.writeFileSync(path.join(outDir, 'source.json'), JSON.stringify(data, null, 2));
   fs.writeFileSync(path.join(outDir, 'items.json'), JSON.stringify(items, null, 2));
 
-  for (const [date, dayItems] of groups) {
+  for (const [date, dayItems] of currentGroups) {
     const dayDir = path.join(outDir, 'daily', date);
     mkdirp(dayDir);
     fs.writeFileSync(path.join(dayDir, 'index.html'), renderDay(date, dayItems, meta));

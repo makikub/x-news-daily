@@ -7,3 +7,5 @@ node_modules/
 *.log
 config/x-news-sources.json
 config/*.local.json
+/source.json
+/items.json
