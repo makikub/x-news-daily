@@ -164,7 +164,7 @@ function renderDay(date, items, meta) {
   const body = `
 <nav><a href="../../index.html">← X News Daily</a></nav>
 <h1>Xニュース日次まとめ: ${esc(date)}</h1>
-<p class="muted">Generated at ${esc(meta.generatedAt || '')} / source: ${esc(meta.sourcePath || '')}</p>
+<p class="muted">Generated at ${esc(meta.generatedAt || '')}</p>
 
 <section class="card">
   <h2>今日の概要</h2>
@@ -184,7 +184,7 @@ ${itemCards || '<p>ニュース項目なし。</p>'}
 
 function renderDayMarkdown(date, items, meta) {
   const refs = (it) => it.refs.map((r) => `  - ${r}`).join('\n');
-  return `# Xニュース日次まとめ: ${date}\n\nGenerated at ${meta.generatedAt}\nSource: ${meta.sourcePath}\n\n## 今日の概要\n\n${dayNarrative(date, items)}\n\n## ニュース詳細\n\n${items.map((it, idx) => `### ${idx + 1}. ${it.what || 'Untitled'}\n\n${it.category ? `- Category: ${it.category}\n` : ''}- Account: ${it.handle ? '@' + it.handle : '(unknown)'}\n- X post: ${it.url || ''}\n${it.selectionReason ? `- 選定理由: ${it.selectionReason}\n` : ''}${it.why ? `- なぜ重要か: ${it.why}\n` : ''}${it.podcastAngle ? `- Podcast論点: ${it.podcastAngle}\n` : ''}${it.refs.length ? `\n参照リンク:\n${refs(it)}\n` : ''}`).join('\n')}\n\n## NotebookLM / Podcast 用メモ\n\n${podcastSeed(items)}\n`;
+  return `# Xニュース日次まとめ: ${date}\n\nGenerated at ${meta.generatedAt}\n\n## 今日の概要\n\n${dayNarrative(date, items)}\n\n## ニュース詳細\n\n${items.map((it, idx) => `### ${idx + 1}. ${it.what || 'Untitled'}\n\n${it.category ? `- Category: ${it.category}\n` : ''}- Account: ${it.handle ? '@' + it.handle : '(unknown)'}\n- X post: ${it.url || ''}\n${it.selectionReason ? `- 選定理由: ${it.selectionReason}\n` : ''}${it.why ? `- なぜ重要か: ${it.why}\n` : ''}${it.podcastAngle ? `- Podcast論点: ${it.podcastAngle}\n` : ''}${it.refs.length ? `\n参照リンク:\n${refs(it)}\n` : ''}`).join('\n')}\n\n## NotebookLM / Podcast 用メモ\n\n${podcastSeed(items)}\n`;
 }
 
 function renderIndex(groups, meta) {
@@ -213,11 +213,13 @@ function main() {
   const currentGroups = groupByDate(items);
   mkdirp(outDir);
   const groups = mergeExistingDailyGroups(outDir, currentGroups);
-  const meta = { generatedAt: new Date().toISOString(), sourcePath: input };
+  const meta = { generatedAt: new Date().toISOString() };
 
   fs.writeFileSync(path.join(outDir, 'index.html'), renderIndex(groups, meta));
-  fs.writeFileSync(path.join(outDir, 'source.json'), JSON.stringify(data, null, 2));
-  fs.writeFileSync(path.join(outDir, 'items.json'), JSON.stringify(items, null, 2));
+  if (process.env.X_NEWS_SITE_WRITE_DEBUG_JSON === '1') {
+    fs.writeFileSync(path.join(outDir, 'source.json'), JSON.stringify(data, null, 2));
+    fs.writeFileSync(path.join(outDir, 'items.json'), JSON.stringify(items, null, 2));
+  }
 
   for (const [date, dayItems] of currentGroups) {
     const dayDir = path.join(outDir, 'daily', date);
