@@ -47,6 +47,7 @@ function normalizeItems(data) {
         url,
         what: String(it.what || it.title || it.text || '').trim(),
         why: String(it.why || '').trim(),
+        details: String(it.details || it.detail || it.sourceDigest || '').trim(),
         category: String(it.category || '').trim(),
         selectionReason: String(it.selectionReason || '').trim(),
         podcastAngle: String(it.podcastAngle || '').trim(),
@@ -105,8 +106,10 @@ function dayNarrative(date, items) {
   lines.push(`${date} のXニュースは、${themes.join('、')}が中心でした。`);
   if (top.length) {
     lines.push(`特に目立つのは、${top.map((it) => it.what.replace(/[。.]$/, '')).join('、')}です。`);
+    const detailSeeds = top.map((it) => it.details || it.why).filter(Boolean).slice(0, 2);
+    if (detailSeeds.length) lines.push(`内容面では、${detailSeeds.join(' ')} `.replace(/\s+/g, ' ').trim());
   }
-  lines.push('NotebookLMに読ませる前提で、単なるリンク集ではなく「何が起きたか」「なぜ重要か」「Podcastで話すならどこを膨らませるか」が分かるように整理しています。');
+  lines.push('NotebookLMに読ませる前提で、単なるリンク集ではなく「投稿・リンク先を開かなくても本文だけで内容が追える」粒度で整理しています。');
   return lines.join('\n\n');
 }
 
@@ -156,6 +159,7 @@ function renderDay(date, items, meta) {
   <h3>${idx + 1}. ${esc(it.what || 'Untitled')}</h3>
   <p class="muted">${it.category ? `${esc(it.category)} · ` : ''}${it.handle ? `@${esc(it.handle)} · ` : ''}${it.url ? `<a href="${esc(it.url)}">X post</a>` : ''}</p>
   ${it.selectionReason ? `<p><strong>選定理由:</strong> ${esc(it.selectionReason)}</p>` : ''}
+  ${it.details ? `<p><strong>内容メモ:</strong> ${esc(it.details).replace(/\n/g, '<br>')}</p>` : ''}
   ${it.why ? `<p><strong>なぜ重要か:</strong> ${esc(it.why)}</p>` : ''}
   ${it.podcastAngle ? `<p><strong>Podcast論点:</strong> ${esc(it.podcastAngle)}</p>` : ''}
   ${it.refs.length ? `<p><strong>参照リンク:</strong></p><ul class="refs">${it.refs.map((r) => `<li><a href="${esc(r)}">${esc(r)}</a></li>`).join('')}</ul>` : ''}
@@ -184,7 +188,7 @@ ${itemCards || '<p>ニュース項目なし。</p>'}
 
 function renderDayMarkdown(date, items, meta) {
   const refs = (it) => it.refs.map((r) => `  - ${r}`).join('\n');
-  return `# Xニュース日次まとめ: ${date}\n\nGenerated at ${meta.generatedAt}\n\n## 今日の概要\n\n${dayNarrative(date, items)}\n\n## ニュース詳細\n\n${items.map((it, idx) => `### ${idx + 1}. ${it.what || 'Untitled'}\n\n${it.category ? `- Category: ${it.category}\n` : ''}- Account: ${it.handle ? '@' + it.handle : '(unknown)'}\n- X post: ${it.url || ''}\n${it.selectionReason ? `- 選定理由: ${it.selectionReason}\n` : ''}${it.why ? `- なぜ重要か: ${it.why}\n` : ''}${it.podcastAngle ? `- Podcast論点: ${it.podcastAngle}\n` : ''}${it.refs.length ? `\n参照リンク:\n${refs(it)}\n` : ''}`).join('\n')}\n\n## NotebookLM / Podcast 用メモ\n\n${podcastSeed(items)}\n`;
+  return `# Xニュース日次まとめ: ${date}\n\nGenerated at ${meta.generatedAt}\n\n## 今日の概要\n\n${dayNarrative(date, items)}\n\n## ニュース詳細\n\n${items.map((it, idx) => `### ${idx + 1}. ${it.what || 'Untitled'}\n\n${it.category ? `- Category: ${it.category}\n` : ''}- Account: ${it.handle ? '@' + it.handle : '(unknown)'}\n- X post: ${it.url || ''}\n${it.selectionReason ? `- 選定理由: ${it.selectionReason}\n` : ''}${it.details ? `\n内容メモ:\n${it.details}\n` : ''}${it.why ? `\n- なぜ重要か: ${it.why}\n` : ''}${it.podcastAngle ? `- Podcast論点: ${it.podcastAngle}\n` : ''}${it.refs.length ? `\n参照リンク:\n${refs(it)}\n` : ''}`).join('\n')}\n\n## NotebookLM / Podcast 用メモ\n\n${podcastSeed(items)}\n`;
 }
 
 function renderIndex(groups, meta) {
