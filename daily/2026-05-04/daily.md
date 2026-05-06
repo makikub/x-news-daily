@@ -1,6 +1,7 @@
 # Xニュース日次まとめ: 2026-05-04
 
 Generated at 2026-05-03T23:15:25.754Z
+Source: /root/clawd/out/x_news_site_latest_ja.json
 
 ## 今日の概要
 
