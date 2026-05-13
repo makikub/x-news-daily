@@ -193,7 +193,7 @@ async function summarize(selected) {
   }
   const parsed = tryParseJson(getText(resp));
   if (!parsed?.items) return fallbackItems(enriched);
-  return parsed.items.map((it, i) => ({
+  const summarized = parsed.items.map((it, i) => ({
     ...it,
     // Keep deterministic local selection categories/reasons; the model only summarizes.
     category: selected[i]?.category || it.category,
@@ -204,6 +204,13 @@ async function summarize(selected) {
     details: it.details || fallbackItems([enriched[i]])[0]?.details || '',
     refs: Array.isArray(it.refs) && it.refs.length ? it.refs : [enriched[i]?.url, ...(enriched[i]?.urls || [])].filter(Boolean)
   }));
+  // Some models occasionally summarize only the first few candidates. Preserve
+  // the deterministic local selection contract by filling any omitted items with
+  // the local fallback, so both daily groups remain represented.
+  if (summarized.length < selected.length) {
+    summarized.push(...fallbackItems(enriched.slice(summarized.length)));
+  }
+  return summarized;
 }
 
 (async () => {
