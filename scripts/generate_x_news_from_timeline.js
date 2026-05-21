@@ -119,6 +119,18 @@ function tryParseJson(text) {
 
 function pickTimelineItems(snapshot, hours, each, profile = null) {
   const since = Date.now() - hours * 3600 * 1000;
+  const itemKey = (t) => String(t.url || t.id || cleanText(t.text).slice(0, 160));
+  const unique = (items) => {
+    const keys = new Set();
+    return items.filter((t) => {
+      const key = itemKey(t);
+      if (keys.has(key)) return false;
+      keys.add(key);
+      return true;
+    });
+  };
+  const byEngagement = (a, b) => (b.engagementScore - a.engagementScore) || (b.preferenceScore - a.preferenceScore) || String(b.created_at).localeCompare(String(a.created_at));
+  const byPreference = (a, b) => (b.preferenceScore - a.preferenceScore) || (b.engagementScore - a.engagementScore);
   const timeline = (snapshot.timeline || [])
     .filter((t) => Date.parse(t.created_at || '') >= since)
     .map((t) => ({ ...t, engagementScore: scoreEngagement(t.metrics), preferenceScore: preferenceScore(t, profile) }))
@@ -129,16 +141,19 @@ function pickTimelineItems(snapshot, hours, each, profile = null) {
   // after the post matches Masaki's interest areas.
   const interested = timeline.filter((t) => t.preferenceScore >= 4);
 
-  const popular = interested
-    .slice()
-    .sort((a, b) => (b.engagementScore - a.engagementScore) || (b.preferenceScore - a.preferenceScore) || String(b.created_at).localeCompare(String(a.created_at)))
+  const popular = unique(interested.slice().sort(byEngagement))
     .slice(0, each)
     .map((t) => ({ ...t, category: '興味領域で反響の多い投稿', selectionReason: `preferenceScore=${t.preferenceScore}, engagementScore=${t.engagementScore}` }));
-  for (const t of popular) seen.add(t.id || t.url);
+  for (const t of popular) seen.add(itemKey(t));
 
-  const preferred = interested
-    .filter((t) => !seen.has(t.id || t.url))
-    .sort((a, b) => (b.preferenceScore - a.preferenceScore) || (b.engagementScore - a.engagementScore))
+  const preferred = unique(interested
+    .filter((t) => {
+      const key = itemKey(t);
+      if (seen.has(key)) return false;
+      seen.add(key);
+      return true;
+    }))
+    .sort(byPreference)
     .slice(0, each)
     .map((t) => ({ ...t, category: 'Masaki好みの投稿', selectionReason: `preferenceScore=${t.preferenceScore}, engagementScore=${t.engagementScore}` }));
   return [...popular, ...preferred];
@@ -198,11 +213,11 @@ async function summarize(selected) {
     // Keep deterministic local selection categories/reasons; the model only summarizes.
     category: selected[i]?.category || it.category,
     selectionReason: selected[i]?.selectionReason || it.selectionReason,
-    handle: it.handle || selected[i]?.author || '',
-    url: it.url || selected[i]?.url || '',
+    handle: selected[i]?.author || it.handle || '',
+    url: selected[i]?.url || it.url || '',
     metrics: selected[i]?.metrics || null,
     details: it.details || fallbackItems([enriched[i]])[0]?.details || '',
-    refs: Array.isArray(it.refs) && it.refs.length ? it.refs : [enriched[i]?.url, ...(enriched[i]?.urls || [])].filter(Boolean)
+    refs: [...new Set([selected[i]?.url, ...(enriched[i]?.urls || []), ...(Array.isArray(it.refs) ? it.refs : [])].filter(Boolean))]
   }));
   // Some models occasionally summarize only the first few candidates. Preserve
   // the deterministic local selection contract by filling any omitted items with
