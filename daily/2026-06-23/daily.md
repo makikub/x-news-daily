@@ -1,0 +1,182 @@
+# Xニュース日次まとめ: 2026-06-23
+
+Generated at 2026-06-22T23:15:52.577Z
+
+## 今日の概要
+
+2026-06-23 のXニュースは、AIエージェント / 開発支援、モデル / APIアップデート、プロダクト連携 / ワークフローが中心でした。
+
+特に目立つのは、GoogleスプレッドシートでGeminiによる数式エラートラブルシューティング機能が利用可能になった、Gemini EnterpriseアプリのワークフローエージェントがAllowlist付きで一般公開された、Devinを活用したPR一次レビュー自動化により、FLINTERSでレビュワー負担を削減した事例が紹介されたです。
+
+内容面では、y_sugi_itがGoogle Workspaceの更新情報を投稿した。Geminiが数式セルだけでなく周囲のデータ構造も解釈して修正をサジェストし、エラーセルから1クリックで呼び出せる。2026-06-22から段階的にロールアウトされる。外部のGoogle公式ブログで機能の概要が確認できるが、実際の利用可能範囲は未検証。 y_sugi_itがGoogle Cloudのリリース情報を共有した。従来のAgent Designerより詳細なワークフローをWeb UIで定義可能になり、利用には申請が必要。公式ガイドへのアクセスも承認制。2026年6月18日のリリースノートに基づく情報である。
+
+NotebookLMに読ませる前提で、単なるリンク集ではなく「投稿・リンク先を開かなくても本文だけで内容が追える」粒度で整理しています。
+
+## ニュース詳細
+
+### 1. GoogleスプレッドシートでGeminiによる数式エラートラブルシューティング機能が利用可能になった。
+
+- Category: 興味領域で反響の多い投稿
+- Account: @es0612swift
+- X post: https://x.com/es0612swift/status/2069195080389607685
+- 選定理由: preferenceScore=9, engagementScore=123
+
+内容メモ:
+y_sugi_itがGoogle Workspaceの更新情報を投稿した。Geminiが数式セルだけでなく周囲のデータ構造も解釈して修正をサジェストし、エラーセルから1クリックで呼び出せる。2026-06-22から段階的にロールアウトされる。外部のGoogle公式ブログで機能の概要が確認できるが、実際の利用可能範囲は未検証。
+
+- なぜ重要か: 表計算業務で頻発する数式エラーの解消がAIで自動化され、業務効率が向上する可能性がある。Google Workspaceユーザーにとって日常的な作業が変わる実用的なアップデートだ。
+- Podcast論点: Geminiのこの機能が実際にどれだけ正確にエラーを直せるか、ユーザー事例を交えて議論できる。
+
+参照リンク:
+  - https://x.com/es0612swift/status/2069195080389607685
+  - https://x.com/y_sugi_it/status/2069190975638167782
+  - https://workspaceupdates.googleblog.com/2026/06/troubleshoot-formula-errors-in-sheets.html
+
+### 2. Gemini EnterpriseアプリのワークフローエージェントがAllowlist付きで一般公開された。
+
+- Category: 興味領域で反響の多い投稿
+- Account: @MLBear2
+- X post: https://x.com/MLBear2/status/2069187385603309626
+- 選定理由: preferenceScore=21, engagementScore=29
+
+内容メモ:
+y_sugi_itがGoogle Cloudのリリース情報を共有した。従来のAgent Designerより詳細なワークフローをWeb UIで定義可能になり、利用には申請が必要。公式ガイドへのアクセスも承認制。2026年6月18日のリリースノートに基づく情報である。
+
+- なぜ重要か: エンタープライズ向けAIエージェントの制御性が向上し、業務プロセスへの適用が進む可能性がある。申請制という制限も含め、実際の展開状況が注目される。
+- Podcast論点: Allowlist制の運用実態や、ノーコードから詳細ワークフローへの移行が企業に与える影響を掘り下げられる。
+
+参照リンク:
+  - https://x.com/MLBear2/status/2069187385603309626
+  - https://x.com/y_sugi_it/status/2069193571069198846
+  - https://docs.cloud.google.com/gemini/enterprise/docs/release-notes#June_18_2026
+
+### 3. Devinを活用したPR一次レビュー自動化により、FLINTERSでレビュワー負担を削減した事例が紹介された。
+
+- Category: 興味領域で反響の多い投稿
+- Account: @y_sugi_it
+- X post: https://x.com/y_sugi_it/status/2069190975638167782
+- 選定理由: preferenceScore=8, engagementScore=10
+
+内容メモ:
+findy_toolsが株式会社FLINTERSのDevin活用事例を投稿した。PRの基本的な指摘をDevinに任せることでレビュワーの確認工数を減らし、ドメイン知識の早期習得にもつながった。Playbookを定義してレビュー観点を統一し、詳細設計検討の時間を確保できたという成果が記載されている。
+
+- なぜ重要か: AIによるコードレビュー自動化が実際に開発チームの負担軽減と品質向上に寄与した具体例として参考になる。PRプロセス全体の効率化という観点で実務的な価値が高い。
+- Podcast論点: DevinのようなAIレビュワーを導入する際のPlaybook作成や、チーム内での運用ルール整備について議論できる。
+
+参照リンク:
+  - https://x.com/y_sugi_it/status/2069190975638167782
+  - https://workspaceupdates.googleblog.com/2026/06/troubleshoot-formula-errors-in-sheets.html
+  - https://x.com/findy_tools/status/2069193729609814423
+  - https://findy-tools.io/products/devin/399/881
+
+### 4. Astro 7がリリースされました。Vite 8対応やRust化により、ビルド速度が15〜61%高速化されているとのことです。AIエージェントを活用した開発では、ビルド待ちの短縮が開発速度に影響してくるので、早めにアップデートしておきたいですね。
+
+- Category: 興味領域で反響の多い投稿
+- Account: @yoppy0123
+- X post: https://x.com/yoppy0123/status/2069193933910057214
+- 選定理由: preferenceScore=20, engagementScore=6
+
+内容メモ:
+投稿本文: Astro 7がリリースされました。Vite 8対応やRust化により、ビルド速度が15〜61%高速化されているとのことです。AIエージェントを活用した開発では、ビルド待ちの短縮が開発速度に影響してくるので、早めにアップデートしておきたいですね。
+
+- なぜ重要か: 興味領域で反響の多い投稿として選定。preferenceScore=20, engagementScore=6
+- Podcast論点: この投稿が示すAI・開発ツール・実務ワークフローの変化を、一次ソースや周辺文脈と合わせて話す。
+
+参照リンク:
+  - https://x.com/yoppy0123/status/2069193933910057214
+  - https://twitter.com/astrodotbuild/status/2069098646604304464
+
+### 5. Gemini Enterprise app でワークフローエージェントが Allowlist 付き一般公開に。使用には申請が必要。従来の Agent Designer（ノーコードエージェント作成 UI）より詳細なワークフローを Web UI で定義できる。公式ガイドへのアクセスも承認が必要 #GoogleCloud
+
+- Category: Masaki好みの投稿
+- Account: @y_sugi_it
+- X post: https://x.com/y_sugi_it/status/2069193571069198846
+- 選定理由: preferenceScore=22, engagementScore=4
+
+内容メモ:
+投稿本文: Gemini Enterprise app でワークフローエージェントが Allowlist 付き一般公開に。使用には申請が必要。従来の Agent Designer（ノーコードエージェント作成 UI）より詳細なワークフローを Web UI で定義できる。公式ガイドへのアクセスも承認が必要 #GoogleCloud
+
+外部リンク「Gemini Enterprise release notes | Google Cloud Documentation」の冒頭メモ: Gemini Enterprise release notes | Google Cloud Documentation Skip to main content Technology areas close AI and ML Application development Application hosting Compute Data analytics and pipelines Databases Distributed, hybrid, and multicloud Industry solutions Migration Networking Observability and monitoring Security Storage Cross-product tools close Access and resources management Costs and usage management Infrastructure as code SDK, languages, frameworks, and tools / Console English Deutsch Español – América Latina Français Português – Brasil 中文 – 简体 日本語 한국어 Sign in Gemini Enterprise Start free Configure Gemini Enterprise Use Gemini Enterprise NotebookLM Enterprise Reference Resources Technology areas More Configure Gemini Enterprise Use Gemini Enterprise NotebookLM Enterprise Reference Resources Cross-product tools More Console Gemini Enterprise All resources Pricing Quotas and limits Release notes Data residency and ML regional processing commitments Compliance certifications and security controls Billing questions AI and ML Application development Application hosting Compute Data analytics and pipelines Databases Distributed, hybrid, and multicloud Industry solutions Migration Networking Observability and monitoring Security Storage Access and resources management Costs and usage management Infrastructure as code SDK, languages, frameworks, and tools Note: This documentation applies to the Standard, Plus, and Frontline editions of Gemini Enterprise. For information about the Business edition, see the Gemini Enterprise - Busines
+
+- なぜ重要か: Masaki好みの投稿として選定。preferenceScore=22, engagementScore=4
+- Podcast論点: この投稿が示すAI・開発ツール・実務ワークフローの変化を、一次ソースや周辺文脈と合わせて話す。
+
+参照リンク:
+  - https://x.com/y_sugi_it/status/2069193571069198846
+  - https://docs.cloud.google.com/gemini/enterprise/docs/release-notes#June_18_2026
+
+### 6. RT @sunnariwakaru1: これ、AIエージェント活用の見方としてかなり大事。 Fuguの話は「すごい新モデル」より、役割ごとにAIを分けて協調させる設計として見ると実務に落としやすい。 1人のAIに全部任せる前に、調査・設計・検証を分けるのがコツ。 https…
+
+- Category: Masaki好みの投稿
+- Account: @suna_gaku
+- X post: https://x.com/suna_gaku/status/2069188340474347845
+- 選定理由: preferenceScore=20, engagementScore=6
+
+内容メモ:
+投稿本文: RT @sunnariwakaru1: これ、AIエージェント活用の見方としてかなり大事。 Fuguの話は「すごい新モデル」より、役割ごとにAIを分けて協調させる設計として見ると実務に落としやすい。 1人のAIに全部任せる前に、調査・設計・検証を分けるのがコツ。 https…
+
+- なぜ重要か: Masaki好みの投稿として選定。preferenceScore=20, engagementScore=6
+- Podcast論点: この投稿が示すAI・開発ツール・実務ワークフローの変化を、一次ソースや周辺文脈と合わせて話す。
+
+参照リンク:
+  - https://x.com/suna_gaku/status/2069188340474347845
+
+### 7. 本日のニュースにClaude Code制御術が話題として上がっていたのでクリックしたら何も無かった・・・。
+
+- Category: Masaki好みの投稿
+- Account: @taiyop
+- X post: https://x.com/taiyop/status/2069188811670933760
+- 選定理由: preferenceScore=16, engagementScore=3
+
+内容メモ:
+投稿本文: 本日のニュースにClaude Code制御術が話題として上がっていたのでクリックしたら何も無かった・・・。
+
+- なぜ重要か: Masaki好みの投稿として選定。preferenceScore=16, engagementScore=3
+- Podcast論点: この投稿が示すAI・開発ツール・実務ワークフローの変化を、一次ソースや周辺文脈と合わせて話す。
+
+参照リンク:
+  - https://x.com/taiyop/status/2069188811670933760
+  - https://x.com/taiyop/status/2069188811670933760/photo/1
+
+### 8. 【Devinによる一次コードレビューで、レビュワーの確認工数を削減】 DevinでPR一次レビューを自動化し、レビュワー負担を大幅に軽減。ドメイン知識の早期習得も実現した株式会社FLINTERSのDevin活用事例をご紹介 #Devin #findy_tools 🔗
+
+- Category: Masaki好みの投稿
+- Account: @findy_tools
+- X post: https://x.com/findy_tools/status/2069193729609814423
+- 選定理由: preferenceScore=11, engagementScore=0
+
+内容メモ:
+投稿本文: 【Devinによる一次コードレビューで、レビュワーの確認工数を削減】 DevinでPR一次レビューを自動化し、レビュワー負担を大幅に軽減。ドメイン知識の早期習得も実現した株式会社FLINTERSのDevin活用事例をご紹介 #Devin #findy_tools 🔗
+
+外部リンク「アプリケーション開発において、Devin をどう活用するか？」の冒頭メモ: アプリケーション開発において、Devin をどう活用するか？ 開発ツールのレビューサイト 検索結果がありません 目次 2 Top Devin レビュー アプリケーション開発において、Devin をどう活用するか？ 参考になった 2 レビュー投稿日の情報になります 株式会社FLINTERS / 吉田奈々 メンバー / バックエンドエンジニア / 従業員規模: 51名〜100名 / エンジニア組織: 51名〜100名 最終更新日 2026/03/23 投稿日 2026/03/27 利用プラン ツールの利用規模 ツールの利用開始時期 事業形態 Team プラン 10名以下 2025年 10月 B to B 利用プラン Team プラン ツールの利用規模 10名以下 ツールの利用開始時期 2025年 10月 事業形態 B to B 導入の背景・解決したかった問題 導入背景 ツール導入前の課題 レビュワーの負担増 半年でプロジェクトメンバーが大幅に増え、ドメイン知識を知っているメンバーが少ない状態でした。 コードレビューをするメンバーに偏りがある状態を解消したいと考えました。 初回コードレビューを Devin に任せ、Devin に指摘された部分を解消した状態でレビュー依頼をするようフローを変更しました。 ドメイン知識の習得に時間がかかる Notion / DocBase などドメイン知識や仕様書がバラバラになっている状態でした。 Devin と GitHub を連携し、コードを読ませてアプリの構成を把握するようにしました。 どのような状態を目指していたか レビュワーの負担を減らし、他のタスクに集中できる環境を作る ドメイン知識の早期習得を目指す 導入の成果 改善したかった課題はどれくらい解決されたか レビュワーの負担増 レビュワーにレビューを依頼する前に、Devin にレビューをさせることによって自分では気づかないポイントが明確になり、修正が減ったなと感じました。 チケット対応者 / レビュワー 間のやり取りが減少し、レビュワーの負担が減ったかなと感じています。 ドメイン知識の習得に時間がかかる コード上 / GitHub リポジトリ上の仕様については、まず Devin で確認したうえで、該当するコードを自分で読むようにした結果、コードベースや GitHub リポジトリの中で、どこにどの機能が実装されているのかを把握するまでの時間が短縮され、理解がスムーズになりました。 作業時間に余裕が生まれたことで、より詳細な設計の検討やコードの書き方に時間を割けるようになりました。その結果、セキュリティ上の懸念や、既存システムに影響を与えないかといった観点についても、より細かく確認できるようになりました。 どのような成果が得られたか レビュワーの負担軽減 事前にコードの仕様確認や自己レビューを行うことで、基本的な指摘事項が減り、レビュワーの確認工数を削減することができました。 詳細設計の精度向上 コード理解や仕様確認にかかる時間を短縮できたことで、詳細設計の検討により多くの時間を割けるようになりました。その結果、セキュリティ上の懸念や既存システムへの影響などについても、より細かい観点で確認できるようになりました。 導入に向けた社内への説明 上長・チームへの説明 会社側ですでに導入推進が進められていたため、特に説得は不要でした。 そのため、どう使いこなすかということを考えました。 活用方法 プルリクエスト（PR）の一次レビュー / Playbook の作成 コードレビューを効率的に行うために、レビュー手順を Playbook として定義し、コマンドで呼び出せるようにしています。 Playbook 内では、以下のような観点をもとにレビューが行われるよう設定しています。 プルリクエスト情報の取得
+
+- なぜ重要か: Masaki好みの投稿として選定。preferenceScore=11, engagementScore=0
+- Podcast論点: この投稿が示すAI・開発ツール・実務ワークフローの変化を、一次ソースや周辺文脈と合わせて話す。
+
+参照リンク:
+  - https://x.com/findy_tools/status/2069193729609814423
+  - https://findy-tools.io/products/devin/399/881
+
+
+## NotebookLM / Podcast 用メモ
+
+今日のPodcastで話すなら、冒頭は「AI開発ツールが単発支援から、レビュー・監視・連携まで含む常時稼働のワークフローに広がっている」という流れから入ると自然です。
+
+話す順番の候補:
+
+1. GoogleスプレッドシートでGeminiによる数式エラートラブルシューティング機能が利用可能になった。
+   - 論点: 表計算業務で頻発する数式エラーの解消がAIで自動化され、業務効率が向上する可能性がある。Google Workspaceユーザーにとって日常的な作業が変わる実用的なアップデートだ。
+
+2. Gemini EnterpriseアプリのワークフローエージェントがAllowlist付きで一般公開された。
+   - 論点: エンタープライズ向けAIエージェントの制御性が向上し、業務プロセスへの適用が進む可能性がある。申請制という制限も含め、実際の展開状況が注目される。
+
+3. Devinを活用したPR一次レビュー自動化により、FLINTERSでレビュワー負担を削減した事例が紹介された。
+   - 論点: AIによるコードレビュー自動化が実際に開発チームの負担軽減と品質向上に寄与した具体例として参考になる。PRプロセス全体の効率化という観点で実務的な価値が高い。
+
+4. Astro 7がリリースされました。Vite 8対応やRust化により、ビルド速度が15〜61%高速化されているとのことです。AIエージェントを活用した開発では、ビルド待ちの短縮が開発速度に影響してくるので、早めにアップデートしておきたいですね。
+   - 論点: 興味領域で反響の多い投稿として選定。preferenceScore=20, engagementScore=6
+
+5. Gemini Enterprise app でワークフローエージェントが Allowlist 付き一般公開に。使用には申請が必要。従来の Agent Designer（ノーコードエージェント作成 UI）より詳細なワークフローを Web UI で定義できる。公式ガイドへのアクセスも承認が必要 #GoogleCloud
+   - 論点: Masaki好みの投稿として選定。preferenceScore=22, engagementScore=4
+
+締めは、各社の発表を個別ニュースとして見るだけでなく、開発現場の品質保証・観測性・自動化がエージェント前提に寄っている、という大きな変化に接続するとよさそうです。
