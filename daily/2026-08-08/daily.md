@@ -1,0 +1,186 @@
+# Xニュース日次まとめ: 2026-08-08
+
+Generated at 2026-08-07T23:15:46.422Z
+
+## 今日の概要
+
+2026-08-08 のXニュースは、AIエージェント / 開発支援、モデル / APIアップデートが中心でした。
+
+特に目立つのは、Claude Managed Agentsにセッション予算設定機能が追加された、Claude Managed Agentにadvisor（より強いモデル）を追加できる機能が追加された、Claude Codeでセッション同士が互いにメッセージを送れる機能が追加されたです。
+
+内容面では、投稿本文によると、セッションに予算を設定可能になり、予算上限に達するとpauseしてbudget_reachedイベントが発生する。予算を引き上げればセッションを再開できる。外部リンク先の内容は取得できなかったため未確認。 投稿本文によると、rosterに1行追加するだけで作業中のエージェントがセッション中にadvisorを呼び出せる。外部リンク先の内容は取得できなかったため未確認。
+
+NotebookLMに読ませる前提で、単なるリンク集ではなく「投稿・リンク先を開かなくても本文だけで内容が追える」粒度で整理しています。
+
+## ニュース詳細
+
+### 1. Claude Managed Agentsにセッション予算設定機能が追加された。
+
+- Category: 興味領域で反響の多い投稿
+- Account: @ClaudeDevs
+- X post: https://x.com/ClaudeDevs/status/2085853169930957158
+- 選定理由: preferenceScore=8, engagementScore=1479
+
+内容メモ:
+投稿本文によると、セッションに予算を設定可能になり、予算上限に達するとpauseしてbudget_reachedイベントが発生する。予算を引き上げればセッションを再開できる。外部リンク先の内容は取得できなかったため未確認。
+
+- なぜ重要か: 予算管理により利用料の予測可能性が高まる。AIエージェントの運用コストを制御する実用的な機能として注目されている。
+- Podcast論点: 予算上限時の挙動や、実際の運用で予算設定がどう役立つかを具体例で掘り下げる。
+
+参照リンク:
+  - https://x.com/ClaudeDevs/status/2085853169930957158
+  - https://x.com/ClaudeDevs/status/2085853169930957158/video/1
+
+### 2. Claude Managed Agentにadvisor（より強いモデル）を追加できる機能が追加された。
+
+- Category: 興味領域で反響の多い投稿
+- Account: @bcherny
+- X post: https://x.com/bcherny/status/2085860677990883454
+- 選定理由: preferenceScore=22, engagementScore=302
+
+内容メモ:
+投稿本文によると、rosterに1行追加するだけで作業中のエージェントがセッション中にadvisorを呼び出せる。外部リンク先の内容は取得できなかったため未確認。
+
+- なぜ重要か: エージェントが途中でより高性能なモデルに相談できる仕組みは、タスクの品質向上につながる可能性がある。
+- Podcast論点: advisor呼び出しのタイミングや、コストとのトレードオフについて議論する。
+
+参照リンク:
+  - https://x.com/bcherny/status/2085860677990883454
+  - https://claude.com/blog/auto-mode-default-in-claude-code
+  - https://x.com/bcherny/status/2085860677990883454/photo/1
+  - https://x.com/ClaudeDevs/status/2085853174364348495
+
+### 3. Claude Codeでセッション同士が互いにメッセージを送れる機能が追加された。
+
+- Category: 興味領域で反響の多い投稿
+- Account: @ClaudeDevs
+- X post: https://x.com/ClaudeDevs/status/2085853174364348495
+- 選定理由: preferenceScore=6, engagementScore=176
+
+内容メモ:
+投稿本文によると、Claudeに指示するだけでサマリーを送信し、相手セッションがタスクを引き継げる。MacOSとLinuxで利用可能。外部リンク先の内容は取得できなかったため未確認。
+
+- なぜ重要か: セッション間の連携により、複数のエージェントが協調して作業を進めるワークフローが現実的になった。
+- Podcast論点: セッション間メッセージングが実際の開発でどのように活用できるかを例示する。
+
+参照リンク:
+  - https://x.com/ClaudeDevs/status/2085853174364348495
+  - https://x.com/ClaudeDevs/status/2085853174364348495/photo/1
+  - https://x.com/oikon48/status/2085849426279678169
+
+### 4. Claude CodeのAuto modeがPro、Max、Teamプランのデフォルトになった。
+
+- Category: 興味領域で反響の多い投稿
+- Account: @trq212
+- X post: https://x.com/trq212/status/2085863307106468143
+- 選定理由: preferenceScore=8, engagementScore=159
+
+内容メモ:
+投稿本文によると、Auto modeがPro、Max、Teamプランのデフォルト設定に変更された。EnterpriseプランなどはManaged Settingsで管理可能。外部リンク先の内容は取得できなかったため未確認。
+
+- なぜ重要か: デフォルト変更により、より多くのユーザーが自動モードを日常的に利用するようになる可能性が高い。
+- Podcast論点: Auto modeの精度や、従来の手動モードとの違いを比較して議論する。
+
+参照リンク:
+  - https://x.com/trq212/status/2085863307106468143
+  - https://claude.com/blog/auto-mode-default-in-claude-code
+  - https://x.com/trq212/status/2085863307106468143/photo/1
+  - https://x.com/oikon48/status/2085849045969617145
+
+### 5. Claude Codeでセッション同士が、互いにメッセージを送れるように👀 Claudeに指示するだけで、サマリーを送信し、相手のセッションがタスクの途中で引き継ぎ可能。MacOSとLinuxで利用可能。
+
+- Category: Masaki好みの投稿
+- Account: @oikon48
+- X post: https://x.com/oikon48/status/2085849426279678169
+- 選定理由: preferenceScore=22, engagementScore=79
+
+内容メモ:
+投稿本文: Claude Codeでセッション同士が、互いにメッセージを送れるように👀 Claudeに指示するだけで、サマリーを送信し、相手のセッションがタスクの途中で引き継ぎ可能。MacOSとLinuxで利用可能。
+
+外部リンク「Message your other Claude Code sessions - Claude Code Docs」の冒頭メモ: Message your other Claude Code sessions - Claude Code Docs Documentation Index Fetch the complete documentation index at: /docs/llms.txt Use this file to discover all available pages before exploring further. Skip to main content Claude Code Docs home page English Search... ⌘ K Ask Assistant Claude Developer Platform Claude Code on the Web Claude Code on the Web Search... Navigation Agents and parallel work Message your other Claude Code sessions Getting started Build with Claude Code Administration Configuration Reference Agent SDK What&#x27;s New Resources Agents and parallel work Overview Create custom subagents Agent view Run agent teams Cross-session messaging Dynamic workflows Isolate sessions with worktrees MCP Quickstart Reference Skills Extend Claude with skills Plugins Discover and install prebuilt plugins Create plugins Artifacts Share session output as artifacts Automation Automate with hooks Push external events to Claude Run prompts on a schedule Goals Programmatic usage Launch sessions from links Guides Monorepos and large repos Troubleshooting Troubleshoot installation and login Troubleshoot performance and stability Debug configuration Error reference /* Anthropic Sans - Static fonts from assets.claude.ai */ @font-face { font-family: "Anthropic Sans"; src: url("https://assets.claude.ai/Fonts/AnthropicSans-Text-Regular-Static.otf") format("opentype"); font-weight: 400; font-style: normal; font-display: swap; } @font-face { font-family: "Anthropic Sans"; src: url("https://assets.claude.ai/Fonts/AnthropicSans-Text-RegularItalic-Static.otf") format("opentype"); font-weight: 400
+
+- なぜ重要か: Masaki好みの投稿として選定。preferenceScore=22, engagementScore=79
+- Podcast論点: この投稿が示すAI・開発ツール・実務ワークフローの変化を、一次ソースや周辺文脈と合わせて話す。
+
+参照リンク:
+  - https://x.com/oikon48/status/2085849426279678169
+  - https://code.claude.com/docs/en/cross-session-messaging
+  - https://twitter.com/claudedevs/status/2085817074816070014
+
+### 6. Claude CodeのAuto modeが、Pro, Max, Teamプランのデフォルトに。Enterpriseプランなどでは、Managed Settingsで引き続きデフォルトの設定を管理可能。 Auto mode isnow the defaultin Claude Codefor Pro, Max,and Team plans
+
+- Category: Masaki好みの投稿
+- Account: @oikon48
+- X post: https://x.com/oikon48/status/2085849045969617145
+- 選定理由: preferenceScore=22, engagementScore=13
+
+内容メモ:
+投稿本文: Claude CodeのAuto modeが、Pro, Max, Teamプランのデフォルトに。Enterpriseプランなどでは、Managed Settingsで引き続きデフォルトの設定を管理可能。 Auto mode isnow the defaultin Claude Codefor Pro, Max,and Team plans
+
+外部リンク「Auto mode is now the default in Claude Code for Pro, Max, and Team plans | Claude by Anthropic」の冒頭メモ: Auto mode is now the default in Claude Code for Pro, Max, and Team plans | Claude by Anthropic <path d="M54.375 118.75L56.125 111L58.125 101L59.75 93L61.25 83.125L62.125 79.875L62 79.625L61.375 79.75L53.875 90L42.5 105.375L33.5 114.875L31.375 115.75L27.625 113.875L28 110.375L30.125 107.375L42.5 91.5L50 81.625L54.875 76L54.75 75.25H54.5L21.5 96.75L15.625 97.5L13 95.125L13.375 91.25L14.625 90L24.5 83.125L49.125 69.375L49.5 68.125L49.125 67.5H47.875L43.75 67.25L29.75 66.875L17.625 66.375L5.75 65.75L2.75 65.125L0 61.375L0.25 59.5L2.75 57.875L6.375 58.125L14.25 58.75L26.125 59.5L34.75 60L47.5 61.375H49.5L49.75 60.5L49.125 60L48.625 59.5L36.25 51.25L23 42.5L16 37.375L12.25 34.75L10.375 32.375L9.625 27.125L13 23.375L17.625 23.75L18.75 24L23.375 27.625L33.25 35.25L46.25 44.875L48.125 46.375L49 45.875V45.5L48.125 44.125L41.125 31.375L33.625 18.375L30.25 13L29.375 9.75C29.0417 8.625 28.875 7.375 28.875 6L32.75 0.750006L34.875 0L40.125 0.750006L42.25 2.625L45.5 10L50.625 21.625L58.75 37.375L61.125 42.125L62.375 46.375L62.875 47.75H63.75V47L64.375 38L65.625 27.125L66.875 13.125L67.25 9.125L69.25 4.375L73.125 1.87501L76.125 3.25L78.625 6.875L78.25 9.125L76.875 18.75L73.875 33.875L72 44.125H73.125L74.375 42.75L79.5 36L88.125 25.25L91.875 21L96.375 16.25L99.25 14H104.625L108.5 19.875L106.75 26L101.25 33L96.625 38.875L90 47.75L86 54.875L86.375 55.375H87.25L102.125 52.125L110.25 50.75L119.75 49.125L124.125 51.125L124.625 53.125L122.875 57.375L112.625 59.875L100.625 62.25L82.75 66.5L82.5 66.625L82.75 67L90.
+
+- なぜ重要か: Masaki好みの投稿として選定。preferenceScore=22, engagementScore=13
+- Podcast論点: この投稿が示すAI・開発ツール・実務ワークフローの変化を、一次ソースや周辺文脈と合わせて話す。
+
+参照リンク:
+  - https://x.com/oikon48/status/2085849045969617145
+  - https://claude.com/blog/auto-mode-default-in-claude-code
+
+### 7. xangiのリポジトリです。実は最新バージョンでは、3コマンドでCodex等のコーディングエージェントから初期セットアップまで完了するようになっていたりします
+
+- Category: Masaki好みの投稿
+- Account: @karaage0703
+- X post: https://x.com/karaage0703/status/2085848949022511297
+- 選定理由: preferenceScore=21, engagementScore=3
+
+内容メモ:
+投稿本文: xangiのリポジトリです。実は最新バージョンでは、3コマンドでCodex等のコーディングエージェントから初期セットアップまで完了するようになっていたりします
+
+外部リンク「GitHub - karaage0703/xangi: xangi - AGENTIC NEON GENESIS INTELLIGENCE · GitHub」の冒頭メモ: GitHub - karaage0703/xangi: xangi - AGENTIC NEON GENESIS INTELLIGENCE · GitHub Skip to content Navigation Menu Sign in Appearance settings Platform AI CODE CREATION GitHub Copilot Write better code with AI GitHub Copilot app Direct agents from issue to merge MCP Registry Integrate external tools DEVELOPER WORKFLOWS Actions Automate any workflow Codespaces Instant dev environments Issues Plan and track work Code Review Manage code changes Code Quality Enforce quality at merge APPLICATION SECURITY GitHub Advanced Security Find and fix vulnerabilities Code security Secure your code as you build Secret protection Stop leaks before they start EXPLORE Why GitHub Documentation Blog Changelog Marketplace View all features Solutions BY COMPANY SIZE Enterprises Small and medium teams Startups Nonprofits BY USE CASE <a class="Primer_Brand__Link-module__Link___lF11y Primer_Brand__Link-module__Link--default___VRVW0" href="https://git
+
+- なぜ重要か: Masaki好みの投稿として選定。preferenceScore=21, engagementScore=3
+- Podcast論点: この投稿が示すAI・開発ツール・実務ワークフローの変化を、一次ソースや周辺文脈と合わせて話す。
+
+参照リンク:
+  - https://x.com/karaage0703/status/2085848949022511297
+  - https://github.com/karaage0703/xangi
+
+### 8. 【8月8日 朝のニュースまとめ】 ・Seedance 2.5が33日間無制限で利用可能に ・MetaやMoonshot AIのモデルがテスト環境から脱出 ・Claude CodeのAuto mode標準化とセッション間通信追加 ・SK Hynixが韓国に380億ドルのメモリ工場新設 ・GPT-5.6 Luna値下げで利用量10倍急増 ・Google Deep
+
+- Category: Masaki好みの投稿
+- Account: @MLBear2
+- X post: https://x.com/MLBear2/status/2085857436871819408
+- 選定理由: preferenceScore=20, engagementScore=20
+
+内容メモ:
+投稿本文: 【8月8日 朝のニュースまとめ】 ・Seedance 2.5が33日間無制限で利用可能に ・MetaやMoonshot AIのモデルがテスト環境から脱出 ・Claude CodeのAuto mode標準化とセッション間通信追加 ・SK Hynixが韓国に380億ドルのメモリ工場新設 ・GPT-5.6 Luna値下げで利用量10倍急増 ・Google DeepMindのDemis
+
+- なぜ重要か: Masaki好みの投稿として選定。preferenceScore=20, engagementScore=20
+- Podcast論点: この投稿が示すAI・開発ツール・実務ワークフローの変化を、一次ソースや周辺文脈と合わせて話す。
+
+参照リンク:
+  - https://x.com/MLBear2/status/2085857436871819408
+
+
+## NotebookLM / Podcast 用メモ
+
+今日のPodcastで話すなら、冒頭は「AI開発ツールが単発支援から、レビュー・監視・連携まで含む常時稼働のワークフローに広がっている」という流れから入ると自然です。
+
+話す順番の候補:
+
+1. Claude Managed Agentsにセッション予算設定機能が追加された。
+   - 論点: 予算管理により利用料の予測可能性が高まる。AIエージェントの運用コストを制御する実用的な機能として注目されている。
+
+2. Claude Managed Agentにadvisor（より強いモデル）を追加できる機能が追加された。
+   - 論点: エージェントが途中でより高性能なモデルに相談できる仕組みは、タスクの品質向上につながる可能性がある。
+
+3. Claude Codeでセッション同士が互いにメッセージを送れる機能が追加された。
+   - 論点: セッション間の連携により、複数のエージェントが協調して作業を進めるワークフローが現実的になった。
+
+4. Claude CodeのAuto modeがPro、Max、Teamプランのデフォルトになった。
+   - 論点: デフォルト変更により、より多くのユーザーが自動モードを日常的に利用するようになる可能性が高い。
+
+5. Claude Codeでセッション同士が、互いにメッセージを送れるように👀 Claudeに指示するだけで、サマリーを送信し、相手のセッションがタスクの途中で引き継ぎ可能。MacOSとLinuxで利用可能。
+   - 論点: Masaki好みの投稿として選定。preferenceScore=22, engagementScore=79
+
+締めは、各社の発表を個別ニュースとして見るだけでなく、開発現場の品質保証・観測性・自動化がエージェント前提に寄っている、という大きな変化に接続するとよさそうです。
